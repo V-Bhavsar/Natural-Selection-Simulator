@@ -112,6 +112,5 @@ function findFittestEntity() {
 			fittest = i;
 		}
 	}
-	console.log(fittest)
 	return fittest;
 }
