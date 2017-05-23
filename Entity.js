@@ -1,10 +1,17 @@
 function Entity(x, y, genes) {
+
+	var nutritionHealth = 0.25;
+	var diseaseHealth = -0.1;
+	var timeHealth = -0.05;
+
 	//Entity traits
 	this.size = 6;
 	this.mutationRate = 0.02;
+	this.reproductationRate = 0.2;
 	this.location = createVector(x, y);
 	this.velocity = createVector(0, 2);
 	this.acceleration = createVector(0, 0);
+	this.maxSpeed = 3;
 	this.health = 2;
 	this.genes = [];
 
@@ -52,5 +59,48 @@ function Entity(x, y, genes) {
 		ellipse(0, 0, this.genes[3] * 2);
 
 		pop()
+	}
+
+	this.steer = function(nutritionList, diseaseList) {
+		var nutritionSense = this.genes[2];
+		var diseaseSense = this.genes[3];
+
+		//If the closest nutrition or disease is within 5px, it will consume it, else, it will steer in that direction
+		var headingNutrition = this.encounter(nutritionList, nutritionHealth, nutritionSense)
+		var headingDisease = this.encounter(diseaseList, diseaseHealth, diseaseSense)
+
+		headingNutrition.mult(genes[0]);
+		headingDisease.mult(genes[1]);
+
+		this.changeDirection(headingNutrition);
+		this.changeDirection(headingDisease);
+	}
+
+	this.changeDirection = function(desiredHeading) {
+		this.acceleration.add(desiredHeading);
+	}
+
+	this.seekDirection = function(targetLocation) {
+		//Creating a direction vector from current location to desired location
+		var steerX = targetLocation.x - this.location.x;
+		var steerY = targetLocation.y - this.location.y;
+
+		//Desired Velocity
+		var steerVector = createVector(steerX, steerY);
+		steerVector.setMag(this.maxSpeed);
+
+		//Creating a vector for newVelocity to by subtracting the currentVelocity from the steerVector
+		var newVelocity = p5.Vector.sub(steerVector, this.velocity);
+		newVelocity.limit(this.maxSpeed);
+
+		return newVelocity;
+	}
+
+	this.updateStatus = function() {
+		this.velocity.add(this.acceleration);
+		this.velocity.limit(this.maxSpeed);
+		this.location.add(this.velocity);
+		this.acceleration.mult(0);
+		this.health -= timeHealth;
 	}
 }
