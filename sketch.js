@@ -42,11 +42,16 @@ function draw() {
 		createDisease();
 	}
 
+	var fittest = findFittestEntity();
 	for (var i = entities.length - 1; i >= 0; i--) {
 		entities[i].nearBoundary();
 		entities[i].steer(nutrition, disease);
 		entities[i].updateStatus();
-		entities[i].draw();
+		if (i === fittest && showFittest) {
+			entities[i].draw(true);
+		} else {
+			entities[i].draw(false);
+		}
 
 		var babyEntity = entities[i].reproduce();
 		if (babyEntity != null) {
@@ -80,6 +85,12 @@ function mousePressed() {
 
 }
 
+function keyReleased() {
+	if (key == 'S') {
+		showFittest = !showFittest;
+	}
+}
+
 function createNutrition() {
 	var x = random(width);
 	var y = random(height);
@@ -90,4 +101,17 @@ function createDisease() {
 	var x = random(width);
 	var y = random(height);
 	disease.push(new Disease(x, y, 1.5, 9));
+}
+
+function findFittestEntity() {
+	var maxHealth = 0;
+	var fittest = 0;
+	for (var i = 0; i < entities.length; i++) {
+		if (entities[i].health > maxHealth) {
+			maxHealth = entities[i].health;
+			fittest = i;
+		}
+	}
+	console.log(fittest)
+	return fittest;
 }

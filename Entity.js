@@ -11,7 +11,7 @@ function Entity(x, y, genes) {
 	this.location = createVector(x, y);
 	this.velocity = createVector(0, -2);
 	this.acceleration = createVector(0, 0);
-	this.maxSpeed = 5;
+	this.maxSpeed = 4;
 	this.maxAcc = 0.5;
 	this.health = 2;
 	this.genes = [];
@@ -34,7 +34,7 @@ function Entity(x, y, genes) {
 		}
 	}
 
-	this.draw = function() {
+	this.draw = function(isFittest) {
 		var phi = this.velocity.heading() + PI/2;
 		push();
 		translate(this.location.x, this.location.y);
@@ -47,6 +47,11 @@ function Entity(x, y, genes) {
 		fill(statusColor);
 		stroke(statusColor);
 		strokeWeight(1);
+		if (isFittest) {
+			fill(statusColor);
+			stroke(color(255, 223, 0));
+			strokeWeight(2);
+		}
 		line(0, 0, 0, 40);
 		beginShape();
 		triangle(0, -this.size * 2, -this.size, this.size * 2, this.size, this.size * 2);
@@ -66,7 +71,7 @@ function Entity(x, y, genes) {
 		var nutritionSense = this.genes[2];
 		var diseaseSense = this.genes[3];
 
-		//If the closest nutrition or disease is within 5px, it will consume it, else, it will steer in that direction
+		//If the closest nutrition or disease is within a distance of the max speed, it will consume it, else, it will steer in that direction
 		var headingNutrition = this.encounter(nutritionList, nutritionHealth, nutritionSense)
 		var headingDisease = this.encounter(diseaseList, diseaseHealth, diseaseSense)
 
