@@ -3,6 +3,7 @@ function Disease(x, y, minorRadius, majorRadius) {
 	this.y = y;
 	this.minorRadius = minorRadius;
 	this.majorRadius = majorRadius;
+	this.location = createVector(x, y);
 
 	var theta = PI/4;
 
@@ -11,12 +12,12 @@ function Disease(x, y, minorRadius, majorRadius) {
 		var red = color(255, 0, 0)
 		fill(red);
 		beginShape();
-		for (var i = 0; i < PI; i += theta) {
+		for (var i = 0; i < 2*PI; i += 2*theta) {
 			var vertX = x + Math.cos(i) * this.majorRadius;
-			var vertY = y + Math.sin(i) * this.minorRadius;
+			var vertY = y + Math.sin(i) * this.majorRadius;
 			vertex(vertX, vertY);
-			vertX = x + Math.cos(i + theta) * this.minorRadius;
-			vertY = y + Math.sin(i + theta) * this.minorRadius;
+			vertX = x + Math.cos(i + theta*0.5) * this.minorRadius;
+			vertY = y + Math.sin(i + theta*0.5) * this.minorRadius;
 			vertex(vertX, vertY);
 		}
 		endShape(CLOSE);
