@@ -13,7 +13,7 @@ function Entity(x, y, genes) {
 	this.acceleration = createVector(0, 0);
 	this.maxSpeed = 4;
 	this.maxAcc = 0.5;
-	this.health = 2;
+	this.health = 3;
 	this.genes = [];
 
 	if (genes === undefined) {

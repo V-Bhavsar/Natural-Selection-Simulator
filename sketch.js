@@ -11,7 +11,7 @@ var h = 500;
 var showFittest = false;
 
 var nutritionReplicationRate = 0.1;
-var diseaseReplicationRate = 0.03;
+var diseaseReplicationRate = 0.025;
 
 function setup() {
 	createCanvas(w, h);
