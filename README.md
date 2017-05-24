@@ -9,8 +9,10 @@ This simulation uses genetic algorithms to simulate Darwinian natural selection.
 3) How far they can sense nutrition
 4) How far they can see diseases
 
+The red and green rings around the entities show how far they can sense nutrition and disease.
+
 The entities move around the ecosystem trying to consume nutrition and avoid encountering diseases. Nutrition increases health, and diseases decrease health. Health also decreases with time.
 
 There is a very small probability during each iteration that an entity will reproduce (produce a clone of itself with the same values for its genes with possibilities of tiny mutations).
 
-Based on the work of Daniel Shiffman, the idea is that the entities with the stronger genes will survive for a longer period of time, and thus, have a higher probability of reproducing. Eventually, if the entire species does not die out, we should see all the species having very strong genes; hence, portraying evolution through natural selection.
+Based on the work of Daniel Shiffman, the idea is that the entities with the stronger genes will survive for a longer period of time, and thus, have a higher probability of reproducing while the weaker entities will die out. Eventually, if the entire species does not die out, we should see all the species having very strong genes; hence, portraying evolution through natural selection.
